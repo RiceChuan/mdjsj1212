@@ -38,9 +38,6 @@
         .login-layout .widget-box {
             padding: 0px;
         }
-
-
-
         .error-mess {
             background: #fff0f0 none repeat scroll 0 0;
             border: 1px solid #ffd2d2;
@@ -121,7 +118,7 @@
 
                                     <div class="space-6"></div>
 
-                                    <form action="/login" method="post">
+                                    <form>
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -185,8 +182,6 @@
 <script src="/res/ace/assets/js/jquery-2.1.4.min.js"></script>
 
 <!-- <![endif]-->
-<script src="/res/scripts/supersized-init.js"></script>
-<script src="/res/scripts/supersized.3.2.7.min.js"></script>
 <script src="/res/jquery/texiao.js"></script>
 
 <!-- inline scripts related to this page -->
@@ -196,7 +191,6 @@
             var username = $('#username').val();
             var password = $('#password').val();
             if (username == '') {
-
                 $('#icon').addClass('error-icon');
                 $("#message").html("请输入账号！");
                 $('#mess').addClass('error-mess').show();
@@ -213,6 +207,7 @@
                     type:'POST',
                     async: false,
                     cache: false,
+                    contentType: 'application/json',
                     url: '/login',
                     dataType: 'json',
                     data:'{\"username\":\"'+username+'\",\"password\":\"'+password+'\"}',

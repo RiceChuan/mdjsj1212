@@ -26,12 +26,13 @@ public class UserController {
 
     @RequestMapping("/")
     public String login(Map map){
-        map.put("key","张三yii");
+        map.put("key","张三测试");
         return "login";
     }
 
+
     @RequestMapping("/toWelcome")
-//    @Authorization
+    @Authorization
     public String index(Map map){
         map.put("key","张三yii");
         return "index";
