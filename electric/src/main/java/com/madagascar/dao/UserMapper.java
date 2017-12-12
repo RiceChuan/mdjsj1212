@@ -18,7 +18,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
     User queryById(String uid);
-
+    //测试用
     User findByUserNameAndPwd(@Param("username") String username, @Param("password") String password);
 
     void test();
