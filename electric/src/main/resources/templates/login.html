@@ -124,14 +124,14 @@
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="账号"  name="username" id="username"/>
+															<input type="text" class="form-control" placeholder="账号"  name="username" id="username" onKeyDown="if(event.keyCode==13) return false;"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码"  name="password" id="password"/>
+															<input type="password" class="form-control" placeholder="密码"  name="password" id="password" onKeyDown="if(event.keyCode==13) return false;"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
@@ -191,7 +191,6 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
-        //回车事件绑定
         $("#loginBtn").click(function () {
             var username = $('#username').val();
             var password = $('#password').val();
