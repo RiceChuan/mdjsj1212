@@ -41,13 +41,20 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
 
         if (method.getAnnotation(Authorization.class) != null) {
-            String authorization = request.getHeader(Properties.KEY_AUTHORIZATION);
-            Token token = mTokenMapper.findByToken(authorization);
-            if (token != null && StringUtils.isNotBlank(token.getToken())) {
-                request.setAttribute(Properties.KEY_UID, token.getUid());
-            } else {
-                throw new AuthFailedException();
-            }
+                    HttpSession session =request.getSession();
+        if(session.getAttribute("username")!=null ){
+            return true;
+        }else {
+            response.sendRedirect("/");
+            return false;
+        }
+//            String authorization = request.getHeader(Properties.KEY_AUTHORIZATION);
+//            Token token = mTokenMapper.findByToken(authorization);
+//            if (token != null && StringUtils.isNotBlank(token.getToken())) {
+//                request.setAttribute(Properties.KEY_UID, token.getUid());
+//            } else {
+//                throw new AuthFailedException();
+//            }
         }
         return true;
 //        HttpSession session =request.getSession();

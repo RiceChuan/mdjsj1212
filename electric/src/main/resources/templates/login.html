@@ -38,7 +38,6 @@
         .login-layout .widget-box {
             padding: 0px;
         }
-
         .error-mess {
             background: #fff0f0 none repeat scroll 0 0;
             border: 1px solid #ffd2d2;
@@ -102,7 +101,6 @@
                         <h1>
                             <i class="ace-icon fa fa-leaf green"></i>
                             <span class="white">马达加斯加电力系统</span>
-                            <span class="white" id="id-text2">后台</span>
                         </h1>
 
                     </div>
@@ -120,18 +118,18 @@
 
                                     <div class="space-6"></div>
 
-                                    <form action="/login" method="post">
+                                    <form>
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="账号"  name="username" id="username"/>
+															<input type="text" class="form-control" placeholder="账号"  name="username" id="username" onKeyDown="if(event.keyCode==13) return false;"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码"  name="password" id="password"/>
+															<input type="password" class="form-control" placeholder="密码"  name="password" id="password" onKeyDown="if(event.keyCode==13) return false;"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
@@ -184,8 +182,6 @@
 <script src="/res/ace/assets/js/jquery-2.1.4.min.js"></script>
 
 <!-- <![endif]-->
-<script src="/res/scripts/supersized-init.js"></script>
-<script src="/res/scripts/supersized.3.2.7.min.js"></script>
 <script src="/res/jquery/texiao.js"></script>
 
 <!-- inline scripts related to this page -->
@@ -207,23 +203,35 @@
                 $('#password').focus();
                 return false;
             } else {
-                $.post("/login", {username: username, password: password}, function (result) {
-                    if (result.status==0) {
-                        $('#icon').addClass('error-icon');
-                        $("#message").html("账号或者密码错误！");
-                        $('#password').val('').focus();//清空账号，账号获取焦点
-                        $('#mess').addClass('error-mess').show();
-                        console.log("wwwwwwwwwwwwwwwwwwwww");
-                    } else {
-                        $('#icon').attr('class', 'ok2');
-                        $("#message").html("登录成功，正转向欢迎页！");
-                        $('#mess').attr('class', 'ok1').show();
-                        console.log("ddddddddddddddddddddddddddddddddddddd");
-                        setTimeout(function () {
-                            window.location.href = "/toWelcome";
-                        }, 500)
+                jQuery.ajax({
+                    type:'POST',
+                    async: false,
+                    cache: false,
+                    contentType: 'application/json',
+                    url: '/login',
+                    dataType: 'json',
+                    data:'{\"username\":\"'+username+'\",\"password\":\"'+password+'\"}',
+                    success: function (result) {
+                        if (result.status==0) {
+                            $('#icon').addClass('error-icon');
+                            $("#message").html("账号或者密码错误！");
+                            $('#password').val('').focus();//清空账号，账号获取焦点
+                            $('#mess').addClass('error-mess').show();
+                            console.log("wwwwwwwwwwwwwwwwwwwww"+result.status);
+                        } else {
+                            $('#icon').attr('class', 'ok2');
+                            $("#message").html("登录成功，正转向欢迎页！");
+                            $('#mess').attr('class', 'ok1').show();
+                            console.log("ddddddddddddddddddddddddddddddddddddd");
+                            setTimeout(function () {
+                                window.location.href = "/toWelcome";
+                            }, 500)
+                        }
+                    },
+                    error:function(){
+                        //链接失败
                     }
-                }, "json");
+                });
             }
         });
 
