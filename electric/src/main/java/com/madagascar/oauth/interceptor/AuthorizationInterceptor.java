@@ -57,12 +57,5 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 //            }
         }
         return true;
-//        HttpSession session =request.getSession();
-//        if(session.getAttribute("username")!=null ){
-//            return true;
-//        }else {
-//            response.sendRedirect("/");
-//            return false;
-//        }
     }
 }
