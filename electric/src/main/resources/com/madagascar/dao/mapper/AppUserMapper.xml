@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.madagascar.dao.AppUserMapper">
+    <resultMap id="resultData" type="com.madagascar.model.AppUser">
+        <id column="id" property="id"/>
+        <result column="name" property="username"/>
+        <result column="password" property="password"/>
+        <result column="power_account" property="power_account"/>
+        <result column="power_remain" property="power_remain"/>
+        <result column="total_consumption" property="total_consumption"/>
+        <result column="consumption_balance" property="consumption_balance"/>
+        <result column="create_time" property="create_time"/>
+        <result column="pay_method" property="pay_method"/>
+    </resultMap>
+
+    <insert id="insertUser">
+        INSERT INTO app_user(name,password,create_time) VALUES (#{username},#{password},#{create_time})
+    </insert>
+    <select id="query" resultMap="resultData">
+        SELECT * FROM  app_user WHERE id = #{id}
+    </select>
+    <update id="recharge">
+        UPDATE app_user SET power_account=#{power_account},power_remain = #{power_remain} ,total_consumption = #{total_consumption},consumption_balance = #{consumption_balance}
+      where id = #{id}
+    </update>
+    <select id="queryAll" resultMap="resultData">
+        SELECT * from app_user
+    </select>
+
+
+</mapper>

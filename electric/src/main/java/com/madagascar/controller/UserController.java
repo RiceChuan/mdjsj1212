@@ -33,20 +33,14 @@ public class UserController {
     private TokenMapper mTokenMapper;
 
     @RequestMapping("/")
-    public String login(HttpSession session){
-        String authorization = (String)session.getAttribute("token");
-        //判断是否登录
-        if(authorization!=null ){
-            Token token = mTokenMapper.findByToken(authorization);
-            //判断是否被挤掉或者过期
-            if (token != null && StringUtils.isNotBlank(token.getToken())) {
-                return "index";
-            } else {
-                return "login";
-            }
-        }else {
-            return "login";
-        }
+    public String login(Map map){
+        map.put("key","张三测试");
+        return "88889999";
+    }
+
+    @RequestMapping("/test")
+    public String Test(){
+        return "index";
     }
 
 
