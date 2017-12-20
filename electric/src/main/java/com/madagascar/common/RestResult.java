@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class RestResult<T> {
-
+    @JsonProperty("code")
     private int status;
 
     private String msg;

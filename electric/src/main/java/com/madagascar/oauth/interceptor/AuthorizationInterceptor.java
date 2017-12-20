@@ -41,28 +41,33 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
 
         if (method.getAnnotation(Authorization.class) != null) {
-                    HttpSession session =request.getSession();
-        if(session.getAttribute("username")!=null ){
-            return true;
-        }else {
-            response.sendRedirect("/");
-            return false;
-        }
-//            String authorization = request.getHeader(Properties.KEY_AUTHORIZATION);
-//            Token token = mTokenMapper.findByToken(authorization);
-//            if (token != null && StringUtils.isNotBlank(token.getToken())) {
-//                request.setAttribute(Properties.KEY_UID, token.getUid());
-//            } else {
-//                throw new AuthFailedException();
+//            //session判断，web和安卓可能session不共用
+//            HttpSession session =request.getSession();
+//            if(session.getAttribute("token")!=null ){
+//                request.setAttribute(Properties.KEY_UID,session.getAttribute("username"));
+//                return true;
+//            }else {
+//                response.sendRedirect("/");
+//                return false;
 //            }
+            HttpSession session =request.getSession();
+            String authorization = (String)session.getAttribute("token");
+            //判断是否登录
+            if(authorization!=null){
+                Token token = mTokenMapper.findByToken(authorization);
+                //判断是否被挤掉或者过期
+                if (token != null && StringUtils.isNotBlank(token.getToken())) {
+                    request.setAttribute(Properties.KEY_UID, token.getUid());
+                } else {
+                    response.sendRedirect("/");
+                    throw new AuthFailedException();
+                }
+            }else {
+                response.sendRedirect("/");
+                return false;
+            }
+
         }
         return true;
-//        HttpSession session =request.getSession();
-//        if(session.getAttribute("username")!=null ){
-//            return true;
-//        }else {
-//            response.sendRedirect("/");
-//            return false;
-//        }
     }
 }

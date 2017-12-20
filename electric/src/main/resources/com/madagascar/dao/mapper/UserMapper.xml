@@ -3,25 +3,35 @@
 <mapper namespace="com.madagascar.dao.UserMapper">
     <resultMap id="BaseResultMap" type="com.madagascar.model.User">
         <id column="id" property="id"/>
-        <result column="username" property="username"/>
+        <result column="admin_username" property="username"/>
         <result column="type" property="type"/>
-        <result column="register_time" property="registerTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,username,register_time
+        id,admin_username
+    </sql>
+    <sql id="app_user">
+       id,name,power_account,power_remain,total_consumption,consumption_balance,create_time,pay_method
     </sql>
     <update id="test"></update>
     <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM user
+        FROM admin_user
         where id=#{uid,jdbcType=VARCHAR}
     </select>
     <select id="findByUserNameAndPwd"  resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM user
-        WHERE username=#{username} AND password=#{password}
+        FROM admin_user
+        WHERE admin_username=#{username} AND password=#{password}
+    </select>
+    <select id="searchUserData" resultType="com.madagascar.model.AppUser">
+        SELECT
+        <include refid="app_user"/>
+        FROM app_user
+    </select>
+    <select id="searchUserDataNumber" resultType="java.lang.Integer">
+        SELECT count(*)  FROM app_user
     </select>
 
 </mapper>
