@@ -14,7 +14,6 @@ public interface Properties {
     //会话记录id
     String KEY_AUTHORIZATION = "authorization";
     String KEY_UID = "uid";
-    String KEY_SSO = "/sso";
 
 //    //会话超时时间  单位秒
     int TIME_OVER=60*60;

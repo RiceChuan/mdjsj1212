@@ -205,7 +205,7 @@
                     cache: false,
                     contentType: 'application/json',
                     url: '/login',
-                    dataType: 'json',
+//                    dataType: 'json',
                     data:'{\"username\":\"'+username+'\",\"password\":\"'+password+'\"}',
                     success: function (result) {
                         if (result.status==0) {
@@ -218,7 +218,8 @@
                             $("#message").html("登录成功，正转向欢迎页！");
                             $('#mess').attr('class', 'ok1').show();
                             setTimeout(function () {
-                                window.location.href = "/toWelcome";
+                                window.location.href = "/index";
+
                             }, 500)
                         }
                     },

@@ -1,8 +1,12 @@
 package com.madagascar.dao;
 
+import com.madagascar.model.AppUser;
 import com.madagascar.model.User;
+import com.madagascar.model.UserLogger;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 /**
@@ -22,4 +26,8 @@ public interface UserMapper {
     User findByUserNameAndPwd(@Param("username") String username, @Param("password") String password);
    //再次测试用
     void test();
+
+    List<AppUser> searchUserData();
+
+    int searchUserDataNumber();
 }

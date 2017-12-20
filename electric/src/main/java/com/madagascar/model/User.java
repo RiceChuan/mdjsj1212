@@ -21,21 +21,9 @@ public class User {
     private String id;
     private String username;
     private String password;
-    private String registerTime;
+
     private Integer type;
 
     public User() {
     }
-
-    public void setRegisterTime(String registerTime) {
-        this.registerTime = registerTime;
-    }
-
-    public String getRegisterTime() {
-        //2017-10-18 09:17:24.0原来格式，需要去掉最后 .0
-        //处理后的时间格式2017-10-18 09:17:24
-        String replace = registerTime.replace(".0", "");
-        return replace;
-    }
-
 }

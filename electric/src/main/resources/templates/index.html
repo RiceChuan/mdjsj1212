@@ -94,7 +94,7 @@
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="/ToMine">
+                            <a href="#">
                                 <i class="ace-icon fa fa-user"></i>
                                 个人信息
                             </a>
@@ -182,9 +182,9 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="/ToMine">
+                        <a href="/usermanage">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            个人信息
+                            用户管理
                         </a>
 
                         <b class="arrow"></b>
@@ -196,7 +196,7 @@
                     <i class="menu-icon fa fa-picture-o"></i>
 
                     <span class="menu-text">
-								日志管理
+								数据库管理
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
@@ -206,17 +206,17 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="/logSearch">
+                        <a href="#">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            日志查询
+                            数据库备份
                         </a>
 
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="/inputData">
+                        <a href="#">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            导入数据
+                            数据库还原
                         </a>
                         <b class="arrow"></b>
                     </li>
@@ -234,7 +234,12 @@
 
     <div class="main-content">
         <h2 style="text-align: center">用户电量使用情况</h2>
-        <div id="main-content" style="height: 600px;margin-top: 50px"></div>
+        <button id="day" class="btn btn-sm btn-primary" onclick="day()">日用电量</button>
+        <button id="month" class="btn btn-sm btn-primary" onclick="month()">月用电量</button>
+        <button id="quarter" class="btn btn-sm btn-primary">季度用电量</button>
+        <button id="year1" class="btn btn-sm btn-primary">半年用电量</button>
+        <button id="year2" class="btn btn-sm btn-primary">年用电量</button>
+        <div id="main-content" style="height: 600px"></div>
         <!--内容-->
     </div><!-- /.main-content -->
 
@@ -278,7 +283,7 @@
 <!-- ace scripts -->
 <script src="/res/ace/assets/js/ace-elements.min.js"></script>
 <script src="/res/ace/assets/js/ace.min.js"></script>
-<script src="/js/logout.js"></script>
+<script src="/res/js/logout.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
@@ -288,91 +293,107 @@
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-    var dom = document.getElementById("main-content");
-    var myChart = echarts.init(dom);
-    var app = {};
-    option = null;
-    var base = +new Date(1968, 9, 3);
-    var oneDay = 24 * 3600 * 1000;
-    var date = [];
 
-    var data = [Math.random() * 300];
-
-    for (var i = 1; i < 20000; i++) {
-        var now = new Date(base += oneDay);
-        date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-        data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-    }
-
-    option = {
+        var dom = document.getElementById("main-content");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
 //        title: {
 //            text: '折线图堆叠'
 //        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data:['日用电量','月用电量','季度用电量','半年用电量','年用电量']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['周一','周二','周三','周四','周五','周六','周日']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                name:'日用电量',
-                type:'line',
-                stack: '总量',
-                data:[120, 132, 101, 134, 90, 230, 210]
+            tooltip : {
+                trigger: 'axis'
             },
-            {
-                name:'月用电量',
-                type:'line',
-                stack: '总量',
-                data:[220, 182, 191, 234, 290, 330, 310]
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
             },
-            {
-                name:'季度用电量',
-                type:'line',
-                stack: '总量',
-                data:[150, 232, 201, 154, 190, 330, 410]
+            calculable : true,
+            legend: {
+                data:['用户统计','区域统计']
             },
-            {
-                name:'半年用电量',
-                type:'line',
-                stack: '总量',
-                data:[320, 332, 301, 334, 390, 330, 320]
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
-            {
-                name:'年用电量',
-                type:'line',
-                stack: '总量',
-                data:[820, 932, 901, 934, 1290, 1330, 1320]
-            }
-        ]
-    };
-    if (option && typeof option === "object") {
-        myChart.setOption(option, true);
-    }
-    //图表响应式布局
-    $(window).resize(function(){
-        myChart.resize();
-    });
+
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一','周二','周三','周四','周五','周六','周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'用户统计',
+                    type:'line',
+                    stack: '总量',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name:'区域统计',
+                    type:'line',
+                    stack: '总量',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                }
+            ],
+            dataZoom: [{
+                type: 'inside',
+                start: 50,
+                end: 100
+            }, {
+                show: true,
+                type: 'slider',
+                y: '95%',
+                start: 50,
+                end: 100
+            }]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+        //图表响应式布局
+        $(window).resize(function(){
+            myChart.resize();
+        });
+
+        function data(date) {
+            jQuery.ajax({
+                type:'POST',
+                async: false,
+                cache: false,
+                url:  '/electricByUserId',
+//                contentType: 'application/json',
+                dataType: 'json',
+                data:{"date":date},
+                success:function(result) {
+console.log(date)
+                    option.xAxis.data = result.data.list;
+                    option.series[0].data =  result.data.list1;
+                    option.series[1].data =  result.data.list1;
+                    myChart.setOption(option);
+                }
+            })
+        }
+        function day() {
+            data(1);
+        }
+        function month() {
+            data(2);
+        }
+
+
 </script>
 </body>
 </html>

@@ -36,6 +36,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        // 注册JsonPathArgumentResolver的参数分解器
         argumentResolvers.add(mCurrentUserMethodArgumentResolver);
     }
 

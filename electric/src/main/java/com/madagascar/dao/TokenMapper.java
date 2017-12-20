@@ -22,9 +22,7 @@ public interface TokenMapper {
 
     /**
      * 根据用户id删除token
-     * @param uid
-     * @return
      */
-    int deleteByUid(@Param("uid") String uid);
+    int deleteByUid(@Param("uid") String token);
 
 }
