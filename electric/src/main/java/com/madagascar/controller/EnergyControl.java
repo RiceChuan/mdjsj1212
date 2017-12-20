@@ -23,6 +23,7 @@ public class EnergyControl {
     @PostMapping(value = "/energy_operate" ,produces = "application/json;charset=UTF-8")
     public Object energy_operate(@RequestBody EnergyRequest request){
         String code = request.getCode();
+
         Energy energy = new Energy();
         double use_power = 0.00;
         if(code.equals("1")){
