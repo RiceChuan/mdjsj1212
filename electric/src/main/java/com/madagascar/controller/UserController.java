@@ -27,7 +27,12 @@ public class UserController {
     @RequestMapping("/")
     public String login(Map map){
         map.put("key","张三测试");
-        return "login";
+        return "88889999";
+    }
+
+    @RequestMapping("/test")
+    public String Test(){
+        return "index";
     }
 
 
