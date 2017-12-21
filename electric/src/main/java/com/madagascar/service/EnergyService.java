@@ -10,6 +10,7 @@ import java.util.List;
 public interface EnergyService {
     String insertEnergy(Energy energy);
     String updateEnergy(Energy energy);
-    List<Energy> queryAll(Energy energy);
+    List<Energy> queryAll(String id);
     Energy queryById(Energy energy);
+    String queryByUserID(Energy energy);
 }

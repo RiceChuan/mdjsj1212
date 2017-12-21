@@ -1,16 +1,17 @@
 package com.madagascar.controller;
 
+import com.madagascar.common.RestResult;
 import com.madagascar.dto.EnergyRequest;
 import com.madagascar.model.Energy;
+import com.madagascar.oauth.annotation.Authorization;
 import com.madagascar.service.EnergyService;
+import com.madagascar.utils.RandomUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by 0 on 2017/12/19.
@@ -42,11 +43,34 @@ public class EnergyControl {
             energy.setUse_power((double) Math.round(use_power*100000)/100000);
             return energyService.updateEnergy(energy);
         }else if(code.equals("3")){
-            //查询操作
+            //查询是否存在同一天的数据
             energy.setUser_id(request.getUser_id());
-            return  energyService.queryAll(energy);
+            return  energyService.queryByUserID(energy);
         }
         return null;
+    }
+
+    //刘川的查询日用表数据库demo
+    @RequestMapping("/electricByUserId")
+    @ResponseBody
+    @Authorization
+    public RestResult electricByUserId(String date){
+        List<Energy> list1 = energyService.queryAll("6");
+        System.out.println(date);
+        List list =new ArrayList();
+        for (int i=1;i<list1.size();i++){
+            list.add(i+"号");
+        }
+
+        List list2 =new ArrayList();
+        for (int i=0;i<list1.size();i++){
+            list2.add(list1.get(i).getUse_power());
+        }
+        Map map = new HashMap();
+        map.put("list",list);
+        map.put("list1",list2);
+
+        return RestResult.success(map);
     }
 
 }

@@ -19,5 +19,8 @@
     <select id="queryById" resultMap="resultData">
         SELECT * FROM energy_used WHERE  id =#{id}
     </select>
+    <select id="queryByUserID" resultMap="resultData">
+        SELECT * FROM energy_used where user_id = #{user_id} order by use_date desc limit 0,1
+    </select>
 
 </mapper>
