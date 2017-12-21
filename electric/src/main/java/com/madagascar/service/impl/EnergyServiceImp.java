@@ -41,7 +41,7 @@ public class EnergyServiceImp implements EnergyService {
     }
 
     @Override
-    public List<Energy> queryAll(String id) {
+    public List<Energy> queryAll(int id) {
         List<Energy> list = energyMapper.queryAll(id);
         return list;
     }

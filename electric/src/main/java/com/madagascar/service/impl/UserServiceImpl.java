@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.madagascar.common.ErrorCode;
 import com.madagascar.common.Properties;
 import com.madagascar.common.RestResult;
+import com.madagascar.dao.AppUserMapper;
 import com.madagascar.dao.TokenMapper;
 import com.madagascar.dao.UserMapper;
 import com.madagascar.dto.LoginResponse;
@@ -30,6 +31,8 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     @Autowired
     TokenMapper tokenMapper;
+    @Autowired
+    AppUserMapper appUserMapper;
 
     @Override
     public RestResult<Boolean> logout(HttpSession session) {
@@ -40,8 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map searchUserData() {
-
-        List<AppUser> list = userMapper.searchUserData();
+        List<AppUser> list=appUserMapper.searchUserData();
         Map<String, Object>  map = new HashMap();
         int number = userMapper.searchUserDataNumber();
         map.put("total",number);

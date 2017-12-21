@@ -27,7 +27,5 @@ public interface UserMapper {
    //再次测试用
     void test();
 
-    List<AppUser> searchUserData();
-
     int searchUserDataNumber();
 }

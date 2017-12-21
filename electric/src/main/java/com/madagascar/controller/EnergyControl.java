@@ -54,9 +54,11 @@ public class EnergyControl {
     @RequestMapping("/electricByUserId")
     @ResponseBody
     @Authorization
-    public RestResult electricByUserId(String date){
-        List<Energy> list1 = energyService.queryAll("6");
+    public RestResult electricByUserId(Integer userid,Integer date){
+        //dete为1查的是日用电量，2是月，3是季度，4是半年，5是年
+        List<Energy> list1 = energyService.queryAll(6);
         System.out.println(date);
+        System.out.println(userid);
         List list =new ArrayList();
         for (int i=1;i<list1.size();i++){
             list.add(i+"号");

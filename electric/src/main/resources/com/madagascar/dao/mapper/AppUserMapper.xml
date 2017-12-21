@@ -12,7 +12,9 @@
         <result column="create_time" property="create_time"/>
         <result column="pay_method" property="pay_method"/>
     </resultMap>
-
+    <sql id="app_user">
+        id,name,power_account,power_remain,total_consumption,consumption_balance,create_time,pay_method
+    </sql>
     <insert id="insertUser">
         INSERT INTO app_user(name,password,create_time) VALUES (#{username},#{password},#{create_time})
     </insert>
@@ -25,6 +27,11 @@
     </update>
     <select id="queryAll" resultMap="resultData">
         SELECT * from app_user
+    </select>
+    <select id="searchUserData" resultMap="resultData">
+        SELECT
+        <include refid="app_user"/>
+        FROM app_user
     </select>
 
 

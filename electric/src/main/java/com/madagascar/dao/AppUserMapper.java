@@ -18,5 +18,7 @@ public interface AppUserMapper {
     void recharge(AppUser appUser);
     //查询所有用户
     List<AppUser> queryAll();
+    //查询用户电量
+    List<AppUser> searchUserData();
 
 }

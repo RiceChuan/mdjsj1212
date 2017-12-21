@@ -9,9 +9,6 @@
     <sql id="Base_Column_List">
         id,admin_username
     </sql>
-    <sql id="app_user">
-       id,name,power_account,power_remain,total_consumption,consumption_balance,create_time,pay_method
-    </sql>
     <update id="test"></update>
     <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
@@ -24,11 +21,6 @@
         <include refid="Base_Column_List"/>
         FROM admin_user
         WHERE admin_username=#{username} AND password=#{password}
-    </select>
-    <select id="searchUserData" resultType="com.madagascar.model.AppUser">
-        SELECT
-        <include refid="app_user"/>
-        FROM app_user
     </select>
     <select id="searchUserDataNumber" resultType="java.lang.Integer">
         SELECT count(*)  FROM app_user
