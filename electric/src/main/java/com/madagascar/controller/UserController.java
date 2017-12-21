@@ -47,6 +47,7 @@ public class UserController {
                 return "userElectric";
             } else {
                 return "login";
+
             }
         }else {
             return "login";
